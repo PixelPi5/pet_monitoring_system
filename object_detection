@@ -1,2 +1,104 @@
-1. Objective
-The goal was to train a YOLOv5 model on a custom dataset to detect room objects such as beds, chairs, doors, and tables, and use the model to identify objects in real-time using a camera.
+**Object Detection Using YOLOv5**
+
+*Objective:*
+To train a YOLOv5 model to detect objects in a room (e.g., doors, windows, beds, chairs) and deploy it for real-time detection using a laptop camera.
+ 
+Tools and Technologies Used:
+•	YOLOv5: For object detection.
+•	Roboflow: For dataset labeling and annotation.
+•	Python 3.12: Programming language.
+•	Required Python Libraries: PyTorch, OpenCV, Bing Image Downloader, and others.
+•	LabelImg: For labeling images (initial attempt).
+•	macOS Terminal: To execute commands and run scripts.
+ 
+Steps Performed:
+Step 1: Setting Up YOLOv5
+1.	Cloned YOLOv5 Repository:
+o	Ran the command:
+git clone https://github.com/ultralytics/yolov5.gitcd yolov5
+2.	Installed Required Dependencies:
+o	Used the following commands:
+pip install -r requirements.txt
+pip install opencv-python
+pip install bing-image-downloader
+3.	Resolved Challenges:
+o	Fixed SSL Certificate errors by installing certificates using:
+/Applications/Python\ 3.12/Install\ Certificates.command
+ 
+Step 2: Preparing the Dataset
+1.	Downloaded Images:
+o	Used the bing-image-downloader library to bulk download images for objects like "doors," "windows," "chairs," etc.:
+from bing_image_downloader import downloader
+downloader.download("door", limit=100, output_dir='dataset', adult_filter_off=True)
+o	Repeated this process for all objects.
+2.	Organized Images:
+o	Split the dataset into train and val folders:
+	80% of images for training.
+	20% of images for validation.
+3.	Annotated Images:
+o	Initially attempted annotation using LabelImg, but faced errors.
+o	Switched to Roboflow for labeling:
+	Uploaded the images to Roboflow.
+	Annotated each object using bounding boxes.
+	Exported the labeled dataset in YOLOv5 format (train and val data separately).
+4.	Reorganized Dataset:
+o	Moved exported files from Roboflow into the YOLOv5 directory:
+	train and val images were placed in:
+yolov5/dataset/train/images
+yolov5/dataset/val/images
+5.	Configured data.yaml File:
+o	Created a data.yaml file specifying the dataset details:
+train: dataset/train/images
+val: dataset/val/images
+nc: 6  # Number of classes
+names: ['door', 'wardrobe', 'bed', 'chair', 'desk', 'lamp']
+ 
+Step 3: Training the YOLOv5 Model
+1.	Training Command:
+o	Trained the model with the following command:
+python3 train.py --img 640 --batch 16 --epochs 50 --data dataset/data.yaml --weights yolov5s.pt
+2.	Challenges Faced During Training:
+o	SSL issues when downloading fonts (resolved by manually placing Arial.ttf in the appropriate directory):
+mkdir -p ~/Library/Application\ Support/Ultralytics/
+mv Arial.ttf ~/Library/Application\ Support/Ultralytics/
+o	Errors related to missing or improperly configured data.yaml and folder structures were resolved by verifying the dataset paths.
+3.	Results:
+o	Model successfully trained.
+o	Metrics such as mAP (Mean Average Precision) and precision were generated.
+o	Results saved in the folder:
+yolov5/runs/train/exp4
+ 
+
+ 
+Step 4: Testing with a Camera
+1.	Ran Real-Time Detection:
+o	Used the trained model for object detection using the laptop's camera:
+python3 detect.py --weights runs/train/exp4/weights/best.pt --img 640 --source 0
+o	The model successfully labeled objects in the room, such as "bed" "chair" and "wardrobe", “lamp”, “desk”
+2.	Stopped Real-Time Detection:
+o	Pressed CTRL+C in the terminal to stop the camera feed.
+ 
+Challenges Faced and Solutions:
+Challenge	Solution
+SSL certificate errors	Installed certificates using the macOS command for Python certificates.
+Errors with LabelImg installation	Switched to Roboflow for annotation.
+Errors related to dataset paths	Verified and corrected paths in the data.yaml file.
+Issues with Arial font download	Manually placed Arial.ttf in the required directory to bypass SSL verification issues.
+Training taking too long	Ensured proper environment setup (training on CPU as no GPU was available).
+ 
+Results:
+•	The YOLOv5 model was successfully trained to detect objects in the room.
+•	It accurately labeled objects like "lamp”,  "wardrobe”, "bed," and "chair" in real-time.
+ 
+
+
+
+Future Improvements:
+1.	Improve Accuracy:
+o	Add more images to the dataset(window, door, TV, curtains) to improve training performance.
+o	Perform hyperparameter tuning (e.g., adjust learning rate, batch size).
+2.	Deploy the Model:
+o	Integrate the trained model into a mobile or web application for real-world use.
+o	Use hardware like Raspberry Pi or NVIDIA Jetson for edge computing.
+3.	Enhance Performance:
+o	Train on a GPU to reduce training time and improve model precision.
