@@ -1,0 +1,2 @@
+1. Objective
+The goal was to train a YOLOv5 model on a custom dataset to detect room objects such as beds, chairs, doors, and tables, and use the model to identify objects in real-time using a camera.
