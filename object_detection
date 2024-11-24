@@ -91,8 +91,6 @@ Results:
 •	It accurately labeled objects like "lamp”,  "wardrobe”, "bed," and "chair" in real-time.
  
 
-
-
 Future Improvements:
 1.	Improve Accuracy:
 o	Add more images to the dataset(window, door, TV, curtains) to improve training performance.
