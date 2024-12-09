@@ -1,0 +1,16 @@
+# Ignore virtual environment
+venv/
+venv-python3.10/
+
+# Ignore YOLO training results
+runs/
+
+# Ignore Python cache files
+__pycache__/
+*.py[cod]
+
+# Ignore log files
+*.log
+
+# Ignore large files
+*.mp4

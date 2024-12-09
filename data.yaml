@@ -1,0 +1,4 @@
+train: /Users/botagozmaya/Downloads/PetMonitoringSystem/dataset/train
+val: /Users/botagozmaya/Downloads/PetMonitoringSystem/dataset/valid
+nc: 5
+names: ['eating', 'playing', 'sleeping', 'stretching', 'walking']
