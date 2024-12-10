@@ -25,7 +25,7 @@ This project implements a pet activity monitoring system using YOLOv8 object det
 
 ## Project Workflow
 
-## Directory Structure
+### Directory Structure
 ```bash
 PetMonitoringSystem/
 ├── dataset/                 # Original dataset (training and validation images/labels)
@@ -44,7 +44,7 @@ PetMonitoringSystem/
 ├── data.yaml                # YOLO dataset configuration
 ├── README.md                # Documentation for the project
 ├── .gitignore               # Specify files/folders to ignore (e.g., venv and runs)
-
+```
 ---
 
 ---
@@ -54,15 +54,18 @@ PetMonitoringSystem/
 ```bash
 git clone https://github.com/PixelPi5/pet_monitoring_system.git
 cd pet_monitoring_system
+```
 
 2. Create a Virtual Environment
 ```bash
 python3 -m venv venv-python3.10
 source venv-python3.10/bin/activate
+```
 
 3. Install Dependencies
 ```bash
 pip install -r requirements.txt
+```
 
 4. Prepare the dataset:
 Place your training and validation images in dataset/train and dataset/valid, respectively.
@@ -70,16 +73,18 @@ Ensure labels are in YOLO format.
 
 5. Update the data.yaml file with your dataset paths.
 
-## Usage
+Usage
 1. Training
 Train the YOLOv8 model using your prepared dataset:
 ```bash
 yolo train model=yolov8n.pt data=data.yaml epochs=50 imgsz=1280 batch=8
+```
 
 2. Testing
 ```bash
 Run inference on a sample video:
 python run_inference_with_notifications.py
+```
 
 3. Deployment
 Deploy the system on Raspberry Pi for real-time monitoring.
@@ -98,6 +103,7 @@ Deploy the system on Raspberry Pi for real-time monitoring.
 1. Transfer Files to Raspberry Pi: 
 ```bash
 scp -r PetMonitoringSystem botagozmaya@172.30.1.55:/home/botagozmaya/
+```
 
 2. Install Dependencies on Raspberry Pi
 Access the Raspberry Pi via SSH and activate the virtual environment:
@@ -107,18 +113,20 @@ cd /home/botagozmaya/PetMonitoringSystem
 python3.10 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
+```
 
 3. Configure Raspberry Pi: 
 ```bash
 sudo raspi-config
+```
 
 4. Run Inference on Raspberry Pi: 
 ```bash
 python scripts/run_inference_with_notifications.py
+```
 
 ## Contributing
 Feel free to submit issues or pull requests to improve this project. Contributions are welcome!
 
 ## License
 This project is licensed under the MIT License.
-
